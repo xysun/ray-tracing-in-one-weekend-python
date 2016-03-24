@@ -35,5 +35,13 @@ class TestVec3(unittest.TestCase):
 
         self.assertEqual(v3, 20)
 
+    def test_divide(self):
+        v1 = Vec3(1,2,3)
+        v2 = v1 / 2.0
+
+        self.assertEqual(v2.e0, 0.5)
+        self.assertEqual(v2.e1, 1)
+        self.assertEqual(v2.e2, 1.5)
+
 if __name__ == '__main__':
     unittest.main()
