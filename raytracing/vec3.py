@@ -16,6 +16,12 @@ class Vec3:
                     self.e1 + other.e1,
                     self.e2 + other.e2)
 
+    def __sub__(self, other):
+
+        return Vec3(self.e0 - other.e0,
+                    self.e1 - other.e1,
+                    self.e2 - other.e2)
+
     def __mul__(self, other):
 
         return Vec3(self.e0 * other,
@@ -30,4 +36,9 @@ class Vec3:
                     self.e1/self.length,
                     self.e2/self.length)
 
+    def dot(self, other):
+
+        return self.e0 * other.e0 + \
+                    self.e1 * other.e1 + \
+                    self.e2 * other.e2
 

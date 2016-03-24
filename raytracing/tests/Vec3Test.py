@@ -28,5 +28,12 @@ class TestVec3(unittest.TestCase):
         v1 = Vec3(1,2,3)
         self.assertEqual(v1.unit_vector().length, 1)
 
+    def test_dot(self):
+        v1 = Vec3(1,2,3)
+        v2 = Vec3(2,3,4)
+        v3 = v1.dot(v2)
+
+        self.assertEqual(v3, 20)
+
 if __name__ == '__main__':
     unittest.main()

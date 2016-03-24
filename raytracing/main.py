@@ -3,12 +3,28 @@ __author__ = 'jsun'
 from vec3 import Vec3
 from ray import Ray
 
+
+def hit_sphere(center, radius, ray):
+
+    oc = ray.origin - center
+    a = ray.direction.dot(ray.direction)
+    b = oc.dot(ray.direction)
+    c = oc.dot(oc) - radius*radius
+
+    discriminant = b*b - a*c
+
+    return discriminant > 0
+
+
 def color(ray):
+
+    if hit_sphere(Vec3(0,0,-1), 0.5, ray):
+        return Vec3(1,0,0)
 
     unit_direction = ray.direction.unit_vector()
     t = 0.5 * (unit_direction.e1 + 1.0)
-    return Vec3(1.0, 1.0, 1.0) * (1-t) + Vec3(0.5, 0.7, 1.0)*t
 
+    return Vec3(1.0, 1.0, 1.0) * (1-t) + Vec3(0.5, 0.7, 1.0)*t
 
 
 def main():
