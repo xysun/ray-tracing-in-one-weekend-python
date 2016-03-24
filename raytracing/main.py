@@ -2,6 +2,9 @@ __author__ = 'jsun'
 
 from vec3 import Vec3
 from ray import Ray
+from hit_record import Hit_record
+from sphere import Sphere
+from hitable_list import Hitable_list
 
 import math
 
@@ -20,19 +23,18 @@ def hit_sphere(center, radius, ray):
         return -1
 
 
-def color(ray):
+def color(ray, world):
 
-    t = hit_sphere(Vec3(0,0,-1), 0.5, ray)
+    hit_record = Hit_record(t=0, p=Vec3(0,0,0), normal=Vec3(0,0,0))
 
-    if t > 0:
-        n = (ray.point_at_parameter(t) - Vec3(0,0,-1)).unit_vector()
-        return Vec3(n.e0 + 1, n.e1 + 1, n.e2 + 1)*0.5
+    if world.hit(ray, 0.0, 10000, hit_record):
+        return Vec3(hit_record.normal.e0 + 1, hit_record.normal.e1 + 1, hit_record.normal.e2 + 1) * 0.5
+    else:
 
-    unit_direction = ray.direction.unit_vector()
-    t = 0.5 * (unit_direction.e1 + 1.0)
+        unit_direction = ray.direction.unit_vector()
+        t = 0.5 * (unit_direction.e1 + 1.0)
 
-    return Vec3(1.0, 1.0, 1.0) * (1-t) + Vec3(0.5, 0.7, 1.0)*t
-
+        return Vec3(1.0, 1.0, 1.0) * (1-t) + Vec3(0.5, 0.7, 1.0)*t
 
 def main():
 
@@ -49,6 +51,10 @@ def main():
         vertical = Vec3(0.0, 2.0, 0.0)
         origin = Vec3(0.0, 0.0, 0.0)
 
+        sphere1 = Sphere(Vec3(0.0,0.0,-1.0), 0.5)
+        sphere2 = Sphere(Vec3(0.0, -100.5, -1.0), 100.0)
+        world = Hitable_list([sphere1, sphere2])
+
         for j in range(ny-1, -1, -1):
             for i in range(0, nx):
 
@@ -56,7 +62,7 @@ def main():
                 v = float(j) / float(ny)
 
                 ray = Ray(origin=origin, direction=lower_left_corner + horizontal*u + vertical*v)
-                col = color(ray)
+                col = color(ray, world)
 
                 ir = int(255.99*col.e0)
                 ig = int(255.99*col.e1)

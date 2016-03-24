@@ -32,6 +32,7 @@ class Sphere(Hitable):
                 return True
 
             temp = (-b + math.sqrt(discriminant)) / a
+
             if temp < t_max and temp > t_min:
                 hit_record.t = temp
                 hit_record.p = ray.point_at_parameter(temp)
