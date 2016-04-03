@@ -25,11 +25,11 @@ class RayTest(unittest.TestCase):
 
         dir1 = Vec3(2,2,0)
         ray1 = Ray(origin, dir1)
-        self.assertFalse(hit_sphere(center, radius, ray1))
+        self.assertEqual(hit_sphere(center, radius, ray1), -1)
 
         dir2 = Vec3(2,1,0)
         ray2 = Ray(origin, dir2)
-        self.assertTrue(hit_sphere(center, radius, ray2))
+        self.assertGreater(hit_sphere(center, radius, ray2), 0)
 
 
 
