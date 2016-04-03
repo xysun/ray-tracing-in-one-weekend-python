@@ -5,8 +5,10 @@ from ray import Ray
 from hit_record import Hit_record
 from sphere import Sphere
 from hitable_list import Hitable_list
+from camera import Camera
 
 import math
+import random
 
 def hit_sphere(center, radius, ray):
 
@@ -41,15 +43,13 @@ def main():
     with open("output.ppm", "w") as f:
         nx = 200
         ny = 100
+        ns = 10
 
         header = "P3\n{} {}\n255\n".format(nx, ny)
 
         f.write(header)
 
-        lower_left_corner = Vec3(-2.0, -1.0, -1.0)
-        horizontal = Vec3(4.0, 0.0, 0.0)
-        vertical = Vec3(0.0, 2.0, 0.0)
-        origin = Vec3(0.0, 0.0, 0.0)
+        camera = Camera()
 
         sphere1 = Sphere(Vec3(0.0,0.0,-1.0), 0.5)
         sphere2 = Sphere(Vec3(0.0, -100.5, -1.0), 100.0)
@@ -57,12 +57,14 @@ def main():
 
         for j in range(ny-1, -1, -1):
             for i in range(0, nx):
+                col = Vec3(0.0, 0.0, 0.0)
+                for k in range(0, ns):
+                    u = float(i + random.random()) / float(nx)
+                    v = float(j + random.random()) / float(ny)
+                    ray = camera.get_ray(u, v)
+                    col += color(ray, world)
 
-                u = float(i) / float(nx)
-                v = float(j) / float(ny)
-
-                ray = Ray(origin=origin, direction=lower_left_corner + horizontal*u + vertical*v)
-                col = color(ray, world)
+                col /= ns
 
                 ir = int(255.99*col.e0)
                 ig = int(255.99*col.e1)
