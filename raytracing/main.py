@@ -10,6 +10,16 @@ from camera import Camera
 import math
 import random
 
+def random_in_unit_sphere():
+
+    p = Vec3(random.random(), random.random(), random.random()) * 2 - Vec3(1.0, 1.0, 1.0)
+
+    while p.dot(p) >= 1.0:
+        p = Vec3(random.random(), random.random(), random.random()) * 2 - Vec3(1.0, 1.0, 1.0)
+
+    return p
+
+
 def hit_sphere(center, radius, ray):
 
     oc = ray.origin - center
@@ -30,7 +40,10 @@ def color(ray, world):
     hit_record = Hit_record(t=0, p=Vec3(0,0,0), normal=Vec3(0,0,0))
 
     if world.hit(ray, 0.0, 10000, hit_record):
-        return Vec3(hit_record.normal.e0 + 1, hit_record.normal.e1 + 1, hit_record.normal.e2 + 1) * 0.5
+        # diffuse
+        target = hit_record.p + hit_record.normal + random_in_unit_sphere()
+        return color(Ray(hit_record.p, target - hit_record.p), world) * 0.5
+
     else:
 
         unit_direction = ray.direction.unit_vector()
@@ -43,7 +56,7 @@ def main():
     with open("output.ppm", "w") as f:
         nx = 200
         ny = 100
-        ns = 10
+        ns = 20
 
         header = "P3\n{} {}\n255\n".format(nx, ny)
 
@@ -64,7 +77,9 @@ def main():
                     ray = camera.get_ray(u, v)
                     col += color(ray, world)
 
-                col /= ns
+                col /= float(ns)
+
+                col = Vec3(math.sqrt(col.e0), math.sqrt(col.e1), math.sqrt(col.e2))
 
                 ir = int(255.99*col.e0)
                 ig = int(255.99*col.e1)
