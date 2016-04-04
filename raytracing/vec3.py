@@ -52,3 +52,9 @@ class Vec3:
                     self.e1 * other.e1 + \
                     self.e2 * other.e2
 
+    def cross(self, other):
+
+        return Vec3(self.e1*other.e2 - self.e2*other.e1,
+                    -(self.e0*other.e2-self.e2*other.e0),
+                    self.e0*other.e1-self.e1*other.e0)
+

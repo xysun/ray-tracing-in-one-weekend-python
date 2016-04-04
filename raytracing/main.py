@@ -57,7 +57,9 @@ def main():
 
         f.write(header)
 
-        camera = Camera(90, float(nx)/float(ny))
+        camera = Camera(Vec3(-2,2,1), Vec3(0,0,-1), Vec3(0,1,0), 90, float(nx)/float(ny))
+        #demonstrate closer camera
+        #camera = Camera(Vec3(-1,1,1), Vec3(0,0,-1), Vec3(0,1,0), 60, float(nx)/float(ny))
 
         r = math.cos(math.pi / 4.0)
         sphere1 = Sphere(Vec3(-r, 0, -1), r, Lambertian(Vec3(0,0,1)))

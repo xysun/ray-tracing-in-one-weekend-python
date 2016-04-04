@@ -1,6 +1,6 @@
 Python vs cpp:
 * pass by reference vs pass by value (hit_record)
-
+* duck typing
 
 
 Chap6 anti-aliasing
@@ -20,3 +20,4 @@ Chap8 metal
 * fuzziness
 
 Chap10 positionable camera
+
