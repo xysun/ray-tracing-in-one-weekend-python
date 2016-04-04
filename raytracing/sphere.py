@@ -6,9 +6,10 @@ import math
 
 class Sphere(Hitable):
 
-    def __init__(self, center, radius):
+    def __init__(self, center, radius, material):
         self.center = center
         self.radius = radius
+        self.material = material
 
     def hit(self, ray, t_min, t_max, hit_record):
 
@@ -28,6 +29,7 @@ class Sphere(Hitable):
                 hit_record.t = temp
                 hit_record.p = ray.point_at_parameter(temp)
                 hit_record.normal = (hit_record.p - self.center) / self.radius
+                hit_record.material = self.material
 
                 return True
 
@@ -37,6 +39,7 @@ class Sphere(Hitable):
                 hit_record.t = temp
                 hit_record.p = ray.point_at_parameter(temp)
                 hit_record.normal = (hit_record.p - self.center) / self.radius
+                hit_record.material = self.material
 
                 return True
 

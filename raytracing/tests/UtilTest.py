@@ -2,7 +2,7 @@ __author__ = 'jsun'
 
 import unittest
 
-from raytracing.main import random_in_unit_sphere
+from raytracing.material import random_in_unit_sphere
 
 class UtilTest(unittest.TestCase):
 

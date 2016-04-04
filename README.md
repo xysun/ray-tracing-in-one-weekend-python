@@ -13,3 +13,10 @@ Chap7 diffuse
 * random reflection
 * recursive diffuse
 * gamma correction
+
+Chap8 metal
+* material class
+* mirrored reflection
+* fuzziness
+
+Chap10 positionable camera

@@ -20,5 +20,6 @@ class Hitable_list(Hitable):
                 hit_record.t = tmp_rec.t
                 hit_record.p = tmp_rec.p
                 hit_record.normal = tmp_rec.normal
+                hit_record.material = tmp_rec.material
 
         return hit_anything

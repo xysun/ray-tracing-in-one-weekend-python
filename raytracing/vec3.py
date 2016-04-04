@@ -28,6 +28,11 @@ class Vec3:
                     self.e1 * other,
                     self.e2 * other)
 
+    def mul(self, other):
+        return Vec3(self.e0 * other.e0,
+                    self.e1 * other.e1,
+                    self.e2 * other.e2)
+
     def __div__(self, other):
 
         return Vec3(self.e0 / other,
