@@ -51,20 +51,23 @@ def main():
     with open("output.ppm", "w") as f:
         nx = 200
         ny = 100
-        ns = 50
+        ns = 20
 
         header = "P3\n{} {}\n255\n".format(nx, ny)
 
         f.write(header)
 
-        camera = Camera()
+        camera = Camera(90, float(nx)/float(ny))
 
-        sphere1 = Sphere(Vec3(0.0,0.0,-1.0), 0.5, Lambertian(Vec3(0.8, 0.3, 0.3)))
-        sphere2 = Sphere(Vec3(0.0, -100.5, -1.0), 100.0, Lambertian(Vec3(0.8, 0.8, 0.0)))
-        sphere3 = Sphere(Vec3(1.0, 0.0, -1.0), 0.5, Metal(Vec3(0.8, 0.6, 0.2)))
-        sphere4 = Sphere(Vec3(-1.0, 0.0, -1.0), 0.5, Metal(Vec3(0.8, 0.8, 0.8)))
+        r = math.cos(math.pi / 4.0)
+        sphere1 = Sphere(Vec3(-r, 0, -1), r, Lambertian(Vec3(0,0,1)))
+        sphere2 = Sphere(Vec3(r, 0, -1), r, Lambertian(Vec3(1,0,0)))
+        #sphere1 = Sphere(Vec3(0.0,0.0,-1.0), 0.5, Lambertian(Vec3(0.8, 0.3, 0.3)))
+        #sphere2 = Sphere(Vec3(0.0, -100.5, -1.0), 100.0, Lambertian(Vec3(0.8, 0.8, 0.0)))
+        #sphere3 = Sphere(Vec3(1.0, 0.0, -1.0), 0.5, Metal(Vec3(0.8, 0.6, 0.2)))
+        #sphere4 = Sphere(Vec3(-1.0, 0.0, -1.0), 0.5, Metal(Vec3(0.8, 0.8, 0.8)))
 
-        world = Hitable_list([sphere1, sphere2, sphere3, sphere4])
+        world = Hitable_list([sphere1, sphere2])
 
         for j in range(ny-1, -1, -1):
 
