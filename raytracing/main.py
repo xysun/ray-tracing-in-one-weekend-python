@@ -4,11 +4,11 @@ from vec3 import Vec3
 from ray import Ray
 
 def color(ray):
+    # blend the y-value of direction
 
     unit_direction = ray.direction.unit_vector()
     t = 0.5 * (unit_direction.e1 + 1.0)
     return Vec3(1.0, 1.0, 1.0) * (1-t) + Vec3(0.5, 0.7, 1.0)*t
-
 
 
 def main():
@@ -32,6 +32,7 @@ def main():
                 u = float(i) / float(nx)
                 v = float(j) / float(ny)
 
+                # simple camera
                 ray = Ray(origin=origin, direction=lower_left_corner + horizontal*u + vertical*v)
                 col = color(ray)
 
