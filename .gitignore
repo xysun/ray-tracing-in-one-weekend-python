@@ -5,3 +5,4 @@ include/
 .Python
 *.swp
 *.pyc
+images/
